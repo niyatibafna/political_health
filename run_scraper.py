@@ -16,11 +16,9 @@ def get_wordlist(filepath):
 
 wordlist = get_wordlist(WORDLIST_FPATH)
 print("WORDLIST: ", wordlist[:5])
-wordlist = wordlist[:1]
-# print(wordlist)
-# wordlist = ["makaan"]
-years = list(range(2010, 2023)) # + list(range(2018, 2022))
-# years = [2018]
+
+years = list(range(2010, 2023))
+
 scraper = Scraper(CRED_FILEPATH)
 
 for year in years:
@@ -28,7 +26,12 @@ for year in years:
     if not os.path.isdir(year_dpath):
         os.mkdir(year_dpath)
     for q_term in wordlist:
+        yq_fpath = os.path.join(year_dpath, q_term.split(" ")[0]+".json")
+        #AVOID REPETITIONS
+        if os.path.exists(yq_fpath):
+            continue
         print("SEARCHING FOR {} in the year {}".format(q_term, year))
         scraper.crawl(q_term, year, year+1, COUNTRY_CODE, MAX_RESULTS)
-        scraper.save(os.path.join(year_dpath, q_term+".json"))
+        scraper.save()
+        visited[year].add(q_term)
         # time.sleep(1)
