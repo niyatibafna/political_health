@@ -6,9 +6,9 @@ import pandas as pd
 class HasocReader:
 
     def __init__(self, path_to_hasoc_dir):
-        print(path_to_hasoc_dir)
+        # print(path_to_hasoc_dir)
         self.HASOC_DIR_CM = path_to_hasoc_dir + "/hi_en_cm/data"
-        print(self.HASOC_DIR_CM)
+        # print(os.listdir(self.HASOC_DIR_CM))
         self.HASOC_DIR_EN = path_to_hasoc_dir + "/en"
         self.HASOC_DIR_HI = path_to_hasoc_dir + "/hi"
 
@@ -80,7 +80,7 @@ class HasocReader:
 
     def reader(self, id_tweet_map = dict(), id_class_map = dict()):
         id_tweet_map, id_class_map = self.cm_reader(id_tweet_map, id_class_map)
-        id_tweet_map, id_class_map = self.hi_en_reader(id_tweet_map, id_class_map)
+        # id_tweet_map, id_class_map = self.hi_en_reader(id_tweet_map, id_class_map)
 
         return id_tweet_map, id_class_map
 
