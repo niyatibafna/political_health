@@ -49,9 +49,9 @@ class HasocReader:
 
         only_take_negatives = False
         for topic_dir in [f for f in os.listdir(self.HASOC_DIR_CM) if os.path.isdir("{}/{}".format(self.HASOC_DIR_CM, f))]:
-            if topic_dir not in ["casteism", "religious controversies", "indian politics"]:
+            if topic_dir not in ["casteism", "religious controversies"]: #"religious controversies", "indian politics"
                 only_take_negatives = True
-            print("Reading: ", topic_dir)
+            print("Reading: ", topic_dir.upper())
             for subdir in [f for f in os.listdir("{}/{}".format(self.HASOC_DIR_CM, topic_dir)) if os.path.isdir("{}/{}/{}".format(self.HASOC_DIR_CM, topic_dir, f))]:
                 hasoc_id_tweet = self.read_tweets("{}/{}/{}/{}".format(self.HASOC_DIR_CM, topic_dir, subdir, "data.json"))
                 hasoc_id_label = self.read_labels("{}/{}/{}/{}".format(self.HASOC_DIR_CM, topic_dir, subdir, "labels.json"))
@@ -61,6 +61,8 @@ class HasocReader:
                             id_tweet_map[text_id] = tweet
                             id_class_map[text_id] = hasoc_id_label[hasoc_id]
                             text_id += 1
+                            # if id_class_map[text_id-1] == 1:
+                            #     print(tweet)
                         except:
                             print("Label not found!")
                             pass
@@ -73,7 +75,7 @@ class HasocReader:
         DIRS = [self.HASOC_DIR_EN, self.HASOC_DIR_HI]
         for DIR in DIRS:
             for fpath in [f for f in os.listdir(DIR) if f.startswith("hasoc")]:
-                if len(id_tweet_map) > 12000:
+                if len(id_tweet_map) > 8000:
                     break
                 # print("{}/{}".format(DIR, fpath))
                 data = pd.read_excel("{}/{}".format(DIR, fpath))
