@@ -14,6 +14,7 @@ class Scraper:
 
         self.bearer_token = self.get_credentials(cred_filepath)
         self.results = dict()
+        self.MAX_TWITTER = 500
 
     def get_credentials(self, cred_filepath):
         config = configparser.RawConfigParser()
@@ -69,7 +70,7 @@ class Scraper:
                 "expansions":"geo.place_id,author_id", \
                 "place.fields":"contained_within,country,country_code,full_name", \
                 "user.fields":"created_at,location", \
-                "max_results":max_results}
+                "max_results":self.MAX_TWITTER}
 
         self.results = requests.get(URL, params=rule, headers=headers).json()
         time.sleep(SLEEP_TIME)
@@ -83,7 +84,7 @@ class Scraper:
             new_results = requests.get(URL, params=rule, headers=headers).json()
             time.sleep(SLEEP_TIME)
             self.append_object(new_results)
-            if self.results["meta"]["result_count"] > 10000:
+            if self.results["meta"]["result_count"] > max_results:
                 break
 
 
