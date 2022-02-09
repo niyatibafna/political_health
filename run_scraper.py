@@ -4,7 +4,7 @@ import time
 from scraper import *
 
 CRED_FILEPATH = "credentials/credentials.config"
-WORDLIST_FPATH = "wordlists/political_controversies.txt"
+WORDLIST_FPATH = "wordlists/islamic_religious_terms.txt"
 COUNTRY_CODE = "IN"
 MAX_RESULTS = 5000
 OUT_DATA_FPATH = "data/crawled/"
@@ -17,7 +17,7 @@ def get_wordlist(filepath):
 wordlist = get_wordlist(WORDLIST_FPATH)
 print("WORDLIST: ", wordlist[:5])
 
-years = list(range(2019, 2021))
+years = list(range(2011, 2021))
 
 scraper = Scraper(CRED_FILEPATH)
 
